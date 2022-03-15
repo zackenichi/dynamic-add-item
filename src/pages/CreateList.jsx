@@ -1,4 +1,6 @@
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import {
   Grid,
   TextField,
@@ -6,6 +8,7 @@ import {
   Button,
   IconButton,
   Tooltip,
+  InputAdornment,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
@@ -59,13 +62,19 @@ const CreateList = () => {
 
   // state solution
 
+  // cost vs sales price toggle
+
+  const [showCost, setShowCost] = useState(false);
+
   const [itemsArray, setItemsArray] = useState([
     {
       id: uuid(),
-      name: '',
-      description: '',
-      qty: 0,
-      price: 0,
+      name: 'Test product',
+      description: 'this is a demo product',
+      qty: 1,
+      price: 312,
+      rrp: 300,
+      cost: 100,
     },
   ]);
 
@@ -74,10 +83,12 @@ const CreateList = () => {
       ...itemsArray,
       {
         id: uuid(),
-        name: '',
-        description: '',
-        qty: 0,
-        price: 0,
+        name: 'Test product',
+        description: 'this is a demo product',
+        qty: 1,
+        price: 312,
+        rrp: 300,
+        cost: 100,
       },
     ]);
     // console.log(itemsArray);
@@ -92,6 +103,14 @@ const CreateList = () => {
     }
   };
 
+  const handleTogglePrice = () => {
+    setShowCost(!showCost);
+  };
+
+  // const handlePriceChange = () => {
+
+  // }
+
   const itemHeaders = (
     <Grid container spacing={2}>
       <Grid item xs={3}>
@@ -101,7 +120,7 @@ const CreateList = () => {
       </Grid>
       <Grid item xs={3}>
         <Typography sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-          Description
+          {showCost ? 'Recommended Price' : 'Description'}
         </Typography>
       </Grid>
       <Grid item xs={1}>
@@ -111,7 +130,7 @@ const CreateList = () => {
       </Grid>
       <Grid item xs={2}>
         <Typography sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-          Price
+          {showCost ? 'Cost price' : 'Price'}
         </Typography>
       </Grid>
       <Grid item xs={3}>
@@ -151,7 +170,7 @@ const CreateList = () => {
           <Grid item xs={3}>
             <TextField
               // value={selectedItem ? selectedItem.description : ''}
-              value={lineItem.description}
+              value={!showCost ? lineItem.description : lineItem.rrp}
               // onChange={handleDescriptionChange}
               fullWidth
               InputProps={{
@@ -183,7 +202,7 @@ const CreateList = () => {
           <Grid item xs={2}>
             <TextField
               // value={selectedItem ? selectedItem.description : ''}
-              value={lineItem.price}
+              value={!showCost ? lineItem.price : lineItem.cost}
               // onChange={handleDescriptionChange}
               fullWidth
               InputProps={{
@@ -192,6 +211,15 @@ const CreateList = () => {
                   borderRadius: '8px',
                   paddingLeft: '16px',
                 },
+                endAdornment: (
+                  <InputAdornment
+                    position="end"
+                    onClick={handleTogglePrice}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    {showCost ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </InputAdornment>
+                ),
                 // readOnly: true,
               }}
             />
