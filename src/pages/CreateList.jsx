@@ -212,15 +212,13 @@ const CreateList = () => {
                   paddingLeft: '16px',
                 },
                 endAdornment: (
-                  <Tooltip title={!showCost ? 'Show cost' : 'Hide cost'}>
-                    <InputAdornment
-                      position="end"
-                      onClick={handleTogglePrice}
-                      sx={{ cursor: 'pointer' }}
-                    >
-                      {showCost ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                    </InputAdornment>
-                  </Tooltip>
+                  <InputAdornment
+                    position="end"
+                    onClick={handleTogglePrice}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    {showCost ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </InputAdornment>
                 ),
                 // readOnly: true,
               }}
