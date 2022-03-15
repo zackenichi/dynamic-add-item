@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# About this project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can see the full demo on https://dynamic-add-item.vercel.app/
+
+This demonstrates a way to create and delete JSX elements dynamically.
+
+It also showcases a toggle system to display a different set of data on icon click.
 
 ## Available Scripts
+
+To install dependancies:
+
+### `yarn`
 
 In the project directory, you can run:
 
 ### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## The solution explained
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To dynamically create elements, we need to use a state which holds an array of objects and we need to map those objects in the JSX part of the code.
 
-### `yarn test`
+It can be as simple as:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ `const [itemsArray,setItemsArray] = useState({
+      id: uuid(),
+      name:'',
+})`
 
-### `yarn build`
+We used uuid to create dynamic keys for our objects as we would also do the same for the add item function.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To add a new element in our array, we just take the previous state of the array and add another empty array with a dynamic id to the items array.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ `const handleAddNewLine = () => {
+    setItemsArray([
+      ...itemsArray,
+      {
+        id: uuid(),
+        name: 'New line item',
+      },
+    ]);  
+  };`
+  
+To delete an item from the array, we just filter the item using the key which is the id
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`const handleDeleteLineItem = (id) => {
+    if (id) {   
+      let newItems = itemsArray.filter((item) => item.id !== id);
+      setItemsArray(newItems);
+    }
+  };`
+  
+  
+  
+  
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
